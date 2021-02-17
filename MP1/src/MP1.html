@@ -1,0 +1,83 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head>
+<title>CS_418_MP1</title>
+<meta charset="utf-8"> 
+</head>
+ 
+<script id="shader-vs" type="x-shader/x-vertex">#version 300 es
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
+    precision mediump float;
+    #endif
+
+    in vec4 aVertexColor;
+    in vec3 aVertexPosition;
+    uniform mat4 uModelViewMatrix;
+    out vec4 vColor;
+
+    void main(void) {
+        gl_Position = uModelViewMatrix * vec4(aVertexPosition, 1.0);
+        vColor = aVertexColor;
+    }
+</script>
+  
+<script id="shader-fs" type="x-shader/x-fragment">#version 300 es
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
+    precision mediump float;
+    #endif
+
+    in vec4 vColor;
+    out vec4 fragmentColor;
+
+    void main(void) {
+            fragmentColor = vColor;
+    }
+</script>
+
+<script src="gl-matrix-min.js"></script>  
+<script src="MP1.js"></script>  
+    
+<p>CS 418 - MP1 Zigeng Zhu (zigeng2)</p>
+
+<body onload="startup();">
+  <canvas id="myGLCanvas" width="500" height="500"></canvas>
+</body>
+
+<p>Select an animation:</p>
+<div>
+<input type="radio" id="Illinois" name="animation" value="Illinois" checked>
+<label for="Illinois">Illinois Logo</label>
+</div>
+<div>
+<input type="radio" id="comet" name="animation" value="comet">
+<label for="comet">Comet</label>
+</div>
+
+    
+<p>Animation settings:</p>
+    
+<div>
+<input type="radio" id="rotation" name="rotation" value="rotation">
+<label for="rotation">Rotate</label>
+
+<input type="radio" id="linear" name="rotation" value="linear" checked>
+<label for="linear">Linear</label>
+</div> 
+
+<div>
+    <label for="speed">Speed:</label>
+    <input type="range" id="speed" name="speed" min="1" max="20" value="0.1">
+</div>
+<div>
+    <label for="freq">Frequency (For Illinois logo only):</label>
+    <input type="range" id="freq" name="freq" min="1" max="10" value="0.1">
+</div>
+<div>
+    <label for="amp">Amplitude (For Illinois logo only):</label>
+    <input type="range" id="amp" name="amp" min="1" max="20" value="0.1">
+</div>
+</html>
